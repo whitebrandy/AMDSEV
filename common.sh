@@ -135,8 +135,10 @@ build_install_ovmf()
 		fi
 		popd >/dev/null
 	else
-		run_cmd git clone --single-branch -b ${OVMF_BRANCH} ${OVMF_GIT_URL} qemu
+	        run_cmd git clone --single-branch -b ${OVMF_BRANCH} ${OVMF_GIT_URL} ovmf
+	        pushd ovmf
 		run_cmd git remote add current ${OVMF_GIT_URL}
+		popd
 	fi
 
 	pushd ovmf >/dev/null
@@ -167,8 +169,10 @@ build_install_qemu()
 		fi
 		popd >/dev/null
 	else
-		run_cmd git clone --single-branch -b ${QEMU_BRANCH} ${QEMU_GIT_URL} qemu
+	        run_cmd git clone --single-branch -b ${QEMU_BRANCH} ${QEMU_GIT_URL} qemu
+	        pushd qemu
 		run_cmd git remote add current ${QEMU_GIT_URL}
+		popd
 	fi
 
 	MAKE="make -j $(getconf _NPROCESSORS_ONLN) LOCALVERSION="
